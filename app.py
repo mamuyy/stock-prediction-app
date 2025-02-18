@@ -16,7 +16,18 @@ st.title("📈 AI Stock Prediction App")
 st.write("Selamat datang di aplikasi prediksi saham berbasis AI!")
 
 # 🔹 Input Simbol Saham
-symbol = st.text_input("Masukkan simbol saham (contoh: TSLA, AAPL, BTC-USD)", "TSLA")
+@st.cache_data
+def get_stock_data(symbol):
+    try:
+        data = yf.download(symbol, start="2019-01-01", end="2024-01-01")
+        if data.empty:
+            st.error("Data saham tidak tersedia. Coba simbol saham lain.")
+            return None
+        return data
+    except Exception as e:
+        st.error(f"Gagal mengambil data saham: {e}")
+        return None
+
 
 # 🔹 Ambil Data Saham dari Yahoo Finance
 @st.cache_data

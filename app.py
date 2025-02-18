@@ -1,4 +1,15 @@
 import streamlit as st
+from tensorflow.keras.models import load_model
+
+# Coba load model LSTM
+try:
+    model = load_model("model_lstm.h5")
+    st.success("✅ Model berhasil dimuat!")
+except Exception as e:
+    st.error(f"❌ Error saat memuat model: {e}")
+    model = None
+
+import streamlit as st
 import pandas as pd  # ✅ Pastikan `pandas` diimpor!
 import yfinance as yf
 import plotly.graph_objects as go

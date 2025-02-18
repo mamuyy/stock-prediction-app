@@ -34,6 +34,20 @@ st.write("📌 Contoh simbol saham Indonesia: **BBRI.JK, BBCA.JK, TLKM.JK, ANTM.
 @st.cache_data
 def get_stock_data(symbol):
     return yf.download(symbol, start="2019-01-01", end="2024-01-01")
+import streamlit as st
+import yfinance as yf
+
+@st.cache_data
+def get_stock_data(symbol):
+    try:
+        data = yf.download(symbol, start="2019-01-01", end="2024-01-01")
+        if data.empty:
+            st.error("Data saham tidak tersedia. Coba simbol saham lain.")
+            return None
+        return data
+    except Exception as e:
+        st.error(f"Gagal mengambil data saham: {e}")
+        return None
 
 data = get_stock_data(symbol)
 

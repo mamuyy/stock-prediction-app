@@ -23,10 +23,7 @@ def get_stock_data(symbol):
         if data.empty:
             st.error("Data saham tidak tersedia. Coba simbol saham lain.")
             return None
-        return data
-    except Exception as e:
-        st.error(f"Gagal mengambil data saham: {e}")
-        return None
+               return None
 st.write("📌 Contoh simbol saham Indonesia: **BBRI.JK, BBCA.JK, TLKM.JK, ANTM.JK**")
 
 

@@ -21,13 +21,24 @@ def get_stock_data(symbol):
         data = yf.download(symbol, start="2019-01-01", end="2024-01-01")
         if data.empty:
             st.error("Data saham tidak tersedia. Coba simbol saham lain.")
-            return None  # <-- PASTIKAN "return None" sejajar dengan if
+            return None
         return data
     except Exception as e:
         st.error(f"Gagal mengambil data saham: {e}")
-        return None  # <-- PASTIKAN sejajar dengan except
-        st.error(f"Gagal mengambil data saham: {e}")
         return None
+
+# 🔹 Ambil Data Saham
+data = get_stock_data(symbol)
+
+if data is not None:
+    st.write("📊 **Data Saham Terbaru:**")
+    st.write(data.tail())  # 🔍 Menampilkan 5 data terakhir untuk debugging
+
+    # 🔹 Tampilkan Grafik Harga Historis
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=data.index, y=data["Close"], mode="lines", name="Closing Price"))
+    fig.update_layout(title=f"{symbol} Stock Price", xaxis_title="Date", yaxis_title="Price (IDR)")
+    st.plotly_chart(fig)
 
 # 🔹 Streamlit App
 st.title("📈 AI Stock Prediction App")

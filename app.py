@@ -27,6 +27,7 @@ def get_stock_data(symbol):
     except Exception as e:
         st.error(f"Gagal mengambil data saham: {e}")
         return None
+st.write("📌 Contoh simbol saham Indonesia: **BBRI.JK, BBCA.JK, TLKM.JK, ANTM.JK**")
 
 
 # 🔹 Ambil Data Saham dari Yahoo Finance

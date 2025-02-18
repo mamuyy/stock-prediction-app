@@ -21,9 +21,11 @@ def get_stock_data(symbol):
         data = yf.download(symbol, start="2019-01-01", end="2024-01-01")
         if data.empty:
             st.error("Data saham tidak tersedia. Coba simbol saham lain.")
-            return None
+            return None  # <-- PASTIKAN "return None" sejajar dengan if
         return data
     except Exception as e:
+        st.error(f"Gagal mengambil data saham: {e}")
+        return None  # <-- PASTIKAN sejajar dengan except
         st.error(f"Gagal mengambil data saham: {e}")
         return None
 
